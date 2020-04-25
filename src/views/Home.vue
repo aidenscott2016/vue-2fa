@@ -1,42 +1,18 @@
 <template>
-  <div class="home">{{ code }}{{ remainingTime }}</div>
+  <div class="home">
+    <img alt="Vue logo" src="../assets/logo.png" />
+    <HelloWorld msg="Welcome to Your Vue.js App" />
+  </div>
 </template>
 
-<script lang="ts">
-import Vue from "vue";
-import OTPAuth from "otpauth";
+<script>
+// @ is an alias to /src
+import HelloWorld from "@/components/HelloWorld.vue";
 
-const secret = "JBSWY3DPEHPK3PXP";
-const period = 30;
-interface Data {
-  code: string;
-  intervalId?: ReturnType<typeof setInterval>;
-  remainingTime: number;
-}
-
-const getCode = (secret: string) => new OTPAuth.TOTP({ secret }).generate();
-
-const getCurrentSeconds = () => Math.round(new Date().getTime() / 1000);
-
-export default Vue.extend({
+export default {
   name: "Home",
-  data: (): Data => ({
-    code: "",
-    remainingTime: 30
-  }),
-  mounted() {
-    this.updateCode();
-    this.intervalId = setInterval(this.updateCode, 1000);
-  },
-  methods: {
-    updateCode() {
-      this.remainingTime = period - (getCurrentSeconds() % period);
-      this.code = getCode(secret);
-    }
-  },
-  destroyed() {
-    clearInterval(this.intervalId);
-  },
-  components: {}
-});
+  components: {
+    HelloWorld
+  }
+};
 </script>
