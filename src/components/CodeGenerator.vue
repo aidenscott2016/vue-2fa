@@ -17,7 +17,7 @@ const getCode = (secret: string) => new OTPAuth.TOTP({ secret }).generate();
 
 const getCurrentSeconds = () => Math.round(new Date().getTime() / 1000);
 
-export default {
+export default Vue.extend({
   name: "Home",
   data: (): Data => ({
     code: "",
@@ -43,5 +43,5 @@ export default {
     clearInterval(this.intervalId);
   },
   components: {}
-};
+});
 </script>
