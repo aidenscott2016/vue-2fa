@@ -1,18 +1,23 @@
 <template>
   <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png" />
-    <HelloWorld msg="Welcome to Your Vue.js App" />
+    <ul>
+      <code-generator v-for="secret in secrets" :key="secret" />
+    </ul>
   </div>
 </template>
 
-<script>
-// @ is an alias to /src
-import HelloWorld from "@/components/HelloWorld.vue";
-
+<script lang="ts">
+import CodeGenerator from "@/components/CodeGenerator.vue";
+interface Data {
+  secrets: string[];
+}
 export default {
   name: "Home",
+  data: (): Data => ({
+    secrets: ["JBSWY3DPEHPK3PXP" /* , "JBQWE3DPEHPK3PXP" */]
+  }),
   components: {
-    HelloWorld
+    CodeGenerator
   }
 };
 </script>

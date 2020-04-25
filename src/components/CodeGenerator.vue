@@ -1,12 +1,11 @@
 <template>
-  <div class="home">{{ code }}{{ remainingTime }}</div>
+  <div class="home">{{ code }} - {{ remainingTime }}</div>
 </template>
 
 <script lang="ts">
-import Vue from "vue";
+import Vue, { PropType } from "vue";
 import OTPAuth from "otpauth";
 
-const secret = "JBSWY3DPEHPK3PXP";
 const period = 30;
 interface Data {
   code: string;
@@ -18,12 +17,18 @@ const getCode = (secret: string) => new OTPAuth.TOTP({ secret }).generate();
 
 const getCurrentSeconds = () => Math.round(new Date().getTime() / 1000);
 
-export default Vue.extend({
+export default {
   name: "Home",
   data: (): Data => ({
     code: "",
     remainingTime: 30
   }),
+  props: {
+    secret: {
+      type: String,
+      required: true
+    }
+  },
   mounted() {
     this.updateCode();
     this.intervalId = setInterval(this.updateCode, 1000);
@@ -31,12 +36,12 @@ export default Vue.extend({
   methods: {
     updateCode() {
       this.remainingTime = period - (getCurrentSeconds() % period);
-      this.code = getCode(secret);
+      this.code = getCode(this.secret);
     }
   },
   destroyed() {
     clearInterval(this.intervalId);
   },
   components: {}
-});
+};
 </script>
