@@ -15,19 +15,14 @@
 import CodeGenerator from "@/components/CodeGenerator.vue";
 import AddSecret from "@/components/AddSecret.vue";
 import Vue from "vue";
+import { mapState, mapActions } from "vuex";
 interface Data {
   secrets: string[];
 }
 export default Vue.extend({
   name: "Home",
-  data: (): Data => ({
-    secrets: ["JBSWY3DPEHPK3PXP", "JBQWE3DPEHPK3PXP"]
-  }),
-  methods: {
-    addSecret(secret: string) {
-      this.secrets.push(secret);
-    }
-  },
+  computed: mapState({ secrets: "secrets" }),
+  methods: mapActions({ addSecret: "addSecret" }),
   components: {
     CodeGenerator,
     AddSecret

@@ -3,9 +3,35 @@ import Vuex from "vuex";
 
 Vue.use(Vuex);
 
-export default new Vuex.Store({
-  state: {},
-  mutations: {},
-  actions: {},
+interface Store {
+  secrets: string[];
+}
+
+const localStorageKey = "state";
+const store = new Vuex.Store<Store>({
+  state: {
+    secrets: []
+  },
+  mutations: {
+    addSecret: (state, secret: string) => state.secrets.push(secret),
+    initialiseStore() {
+      const savedState = localStorage.getItem(localStorageKey);
+      if (savedState) {
+        this.replaceState(JSON.parse(savedState));
+      }
+    },
+    removeSecret: (state, secret) =>
+      (state.secrets = state.secrets.filter(s => s !== secret))
+  },
+  actions: {
+    addSecret: (context, secret) => context.commit("addSecret", secret),
+    removeSecret: (context, secret) => context.commit("removeSecret", secret)
+  },
   modules: {}
 });
+
+store.subscribe((mutation, state) => {
+  localStorage.setItem(localStorageKey, JSON.stringify(state));
+});
+
+export default store;
