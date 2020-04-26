@@ -3,6 +3,8 @@
     <ul>
       <div v-for="(secret, i) in secrets" :key="i">
         <code-generator :name="secret.name" :code="secret.code" />
+
+        <!-- TODO delete secrets but not using secret.secret -->
         <delete-secret :secret="secret.secret" @delete-secret="deleteSecret" />
       </div>
     </ul>
