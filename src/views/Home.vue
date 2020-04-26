@@ -1,11 +1,10 @@
 <template>
   <div class="home">
     <ul>
-      <code-generator
-        v-for="(secret, i) in secrets"
-        :key="i"
-        :secret="secret"
-      />
+      <div v-for="(secret, i) in secrets" :key="i">
+        <code-generator :secret="secret" />
+        <delete-secret :secret="secret" @delete-secret="deleteSecret" />
+      </div>
     </ul>
     <add-secret @new-secret="addSecret" />
   </div>
@@ -14,6 +13,7 @@
 <script lang="ts">
 import CodeGenerator from "@/components/CodeGenerator.vue";
 import AddSecret from "@/components/AddSecret.vue";
+import DeleteSecret from "@/components/DeleteSecret.vue";
 import Vue from "vue";
 import { mapState, mapActions } from "vuex";
 interface Data {
@@ -22,10 +22,11 @@ interface Data {
 export default Vue.extend({
   name: "Home",
   computed: mapState({ secrets: "secrets" }),
-  methods: mapActions({ addSecret: "addSecret" }),
+  methods: mapActions({ addSecret: "addSecret", deleteSecret: "deleteSecret" }),
   components: {
     CodeGenerator,
-    AddSecret
+    AddSecret,
+    DeleteSecret
   }
 });
 </script>

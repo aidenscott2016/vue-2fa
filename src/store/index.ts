@@ -20,12 +20,12 @@ const store = new Vuex.Store<Store>({
         this.replaceState(JSON.parse(savedState));
       }
     },
-    removeSecret: (state, secret) =>
+    deleteSecret: (state, secret) =>
       (state.secrets = state.secrets.filter(s => s !== secret))
   },
   actions: {
     addSecret: (context, secret) => context.commit("addSecret", secret),
-    removeSecret: (context, secret) => context.commit("removeSecret", secret)
+    deleteSecret: (context, secret) => context.commit("deleteSecret", secret)
   },
   modules: {}
 });
