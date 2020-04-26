@@ -1,7 +1,6 @@
 import Vue from "vue";
 
 const getCurrentSeconds = () => Math.round(new Date().getTime() / 1000);
-const period = 30;
 
 export interface Data {
   countdown: {
@@ -11,7 +10,7 @@ export interface Data {
 }
 export default Vue.extend({
   data(): Data {
-    return { countdown: { remainingTime: 30 } };
+    return { countdown: { remainingTime: 0 } };
   },
   destroyed() {
     if (this.countdown.intervalId != undefined) {
@@ -19,12 +18,15 @@ export default Vue.extend({
     }
   },
   methods: {
-    createInterval(intervalHandler: () => any, interval: number) {
+    createInterval(intervalHandler: () => any, period: number) {
       const handle = () => {
-        this.countdown.remainingTime = period - (getCurrentSeconds() % period);
-        intervalHandler();
+        const elapsed = getCurrentSeconds() % period;
+        this.countdown.remainingTime = period - elapsed;
+        if (elapsed == 0) {
+          intervalHandler();
+        }
       };
-      this.countdown.intervalId = setInterval(handle, interval);
+      this.countdown.intervalId = setInterval(handle, 1000);
     }
   }
 });

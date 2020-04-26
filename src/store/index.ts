@@ -43,8 +43,6 @@ const store = new Vuex.Store<Store>({
   },
   actions: {
     initialiseStore: (context, secret: OTPCode) => {
-      localStorage.clear();
-      console.log("clear");
       context.commit("initialiseStore", secret);
       context.commit("refreshCodes");
     },
@@ -52,7 +50,7 @@ const store = new Vuex.Store<Store>({
       context.commit("addSecret", secret),
     deleteSecret: (context, secret: OTPCode) =>
       context.commit("deleteSecret", secret),
-    refreshCodes: context => context.commit("refesh-codes")
+    refreshCodes: context => context.commit("refreshCodes")
   },
   modules: {}
 });

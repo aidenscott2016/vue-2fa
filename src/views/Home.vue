@@ -20,7 +20,7 @@ import { mapState, mapActions } from "vuex";
 import CodeGenerator from "@/components/CodeGenerator.vue";
 import AddSecret from "@/components/AddSecret.vue";
 import DeleteSecret from "@/components/DeleteSecret.vue";
-import useSetInterval from "@/mixins/useSetInterval";
+import useCountdown from "@/mixins/useCountdown";
 import { OTPCode } from "@/store";
 
 interface Data {
@@ -28,16 +28,20 @@ interface Data {
 }
 
 // TS mixin support not good
-export default useSetInterval.extend({
+export default useCountdown.extend({
   name: "Home",
   computed: mapState({ secrets: "secrets" }),
   mounted() {
-    this.createInterval(this.handleTick, 1000);
+    this.createInterval(this.handleTick, 30);
   },
   methods: {
-    ...mapActions({ addSecret: "addSecret", deleteSecret: "deleteSecret" }),
+    ...mapActions({
+      addSecret: "addSecret",
+      deleteSecret: "deleteSecret",
+      refreshCodes: "refreshCodes"
+    }),
     handleTick() {
-      console.log("tock");
+      this.refreshCodes();
     }
   },
   components: {
@@ -45,6 +49,6 @@ export default useSetInterval.extend({
     AddSecret,
     DeleteSecret
   },
-  mixins: [useSetInterval]
+  mixins: [useCountdown]
 });
 </script>
