@@ -19,8 +19,8 @@ export const mutations: MutationTree<State> = {
   [Mutations.IntialiseApp]() {
     this.replaceState(getSavedState());
   },
-  [Mutations.RefreshCodes]: ({ secrets }) =>
-    (secrets = secrets.map(s => ({
+  [Mutations.RefreshCodes]: state =>
+    (state.secrets = state.secrets.map(s => ({
       ...s,
       code: getCode(s.secret)
     })))
