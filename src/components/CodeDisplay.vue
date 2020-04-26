@@ -4,7 +4,7 @@
 
 <script lang="ts">
 import Vue, { PropType } from "vue";
-import { OTPCode } from "@/store";
+import { OTPCode } from "@/store/state";
 
 type Props = Pick<OTPCode, "name" | "code">;
 export default Vue.extend<Props>({

@@ -3,7 +3,7 @@
     <ul>
       <p>{{ this.countdown.remainingTime }} time</p>
       <div v-for="(secret, i) in secrets" :key="i">
-        <code-generator :name="secret.name" :code="secret.code" />
+        <code-display :name="secret.name" :code="secret.code" />
 
         <!-- TODO delete secrets but not using secret.secret -->
         <delete-secret :secret="secret.secret" @delete-secret="deleteSecret" />
@@ -17,35 +17,34 @@
 import Vue from "vue";
 import { mapState, mapActions } from "vuex";
 
-import CodeGenerator from "@/components/CodeGenerator.vue";
+import CodeDisplay from "@/components/CodeDisplay.vue";
 import AddSecret from "@/components/AddSecret.vue";
 import DeleteSecret from "@/components/DeleteSecret.vue";
 import useCountdown from "@/mixins/useCountdown";
-import { OTPCode } from "@/store";
+import { State } from "@/store/state";
+import { Actions } from "@/store/actions";
 
-interface Data {
-  secrets: OTPCode[];
-}
+type Data = Pick<State, "secrets">;
 
 // TS mixin support not good
 export default useCountdown.extend({
   name: "Home",
   computed: mapState({ secrets: "secrets" }),
-  mounted() {
+  created() {
     this.createInterval(this.handleTick, 30);
   },
   methods: {
     ...mapActions({
-      addSecret: "addSecret",
-      deleteSecret: "deleteSecret",
-      refreshCodes: "refreshCodes"
+      addSecret: Actions.AddSecret,
+      deleteSecret: Actions.DeleteSecret,
+      refreshCodes: Actions.RefreshCodes
     }),
     handleTick() {
       this.refreshCodes();
     }
   },
   components: {
-    CodeGenerator,
+    CodeDisplay,
     AddSecret,
     DeleteSecret
   },

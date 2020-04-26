@@ -7,6 +7,7 @@ import store from "./store";
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { faTrash } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
+import { Actions } from "./store/actions";
 
 library.add(faTrash);
 
@@ -19,6 +20,6 @@ new Vue({
   store,
   render: h => h(App),
   beforeCreate() {
-    this.$store.dispatch("initialiseStore");
+    this.$store.dispatch(Actions.IntialiseApp);
   }
 }).$mount("#app");

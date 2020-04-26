@@ -18,6 +18,7 @@ export default Vue.extend({
         name: this.name
       });
       this.secret = "";
+      this.name = "";
     }
   }
 });
