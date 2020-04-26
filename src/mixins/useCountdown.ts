@@ -1,6 +1,5 @@
 import Vue from "vue";
-
-const getCurrentSeconds = () => Math.round(new Date().getTime() / 1000);
+import { getCurrentSeconds } from "@/util";
 
 export interface Data {
   countdown: {
