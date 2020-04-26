@@ -1,7 +1,7 @@
 <template>
   <div class="home">
     <ul>
-      <p>{{ this.countdown.remainingTime }} time</p>
+      <countdown :time="countdown.remainingTime" />
       <div v-for="(secret, i) in secrets" :key="i">
         <code-display :name="secret.name" :code="secret.code" />
 
@@ -20,11 +20,10 @@ import { mapState, mapActions } from "vuex";
 import CodeDisplay from "@/components/CodeDisplay.vue";
 import AddSecret from "@/components/AddSecret.vue";
 import DeleteSecret from "@/components/DeleteSecret.vue";
+import Countdown from "@/components/Countdown.vue";
 import useCountdown from "@/mixins/useCountdown";
 import { State } from "@/store/state";
 import { Actions } from "@/store/actions";
-
-type Data = Pick<State, "secrets">;
 
 // TS mixin support not good
 export default useCountdown.extend({
@@ -46,7 +45,8 @@ export default useCountdown.extend({
   components: {
     CodeDisplay,
     AddSecret,
-    DeleteSecret
+    DeleteSecret,
+    Countdown
   },
   mixins: [useCountdown]
 });
