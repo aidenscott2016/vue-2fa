@@ -1,6 +1,7 @@
 <template>
   <div class="home">
     <ul>
+      <p>{{ this.countdown.remainingTime }} time</p>
       <div v-for="(secret, i) in secrets" :key="i">
         <code-generator :name="secret.name" :code="secret.code" />
 
@@ -13,22 +14,37 @@
 </template>
 
 <script lang="ts">
+import Vue from "vue";
+import { mapState, mapActions } from "vuex";
+
 import CodeGenerator from "@/components/CodeGenerator.vue";
 import AddSecret from "@/components/AddSecret.vue";
 import DeleteSecret from "@/components/DeleteSecret.vue";
-import Vue from "vue";
-import { mapState, mapActions } from "vuex";
+import useSetInterval from "@/mixins/useSetInterval";
+import { OTPCode } from "@/store";
+
 interface Data {
-  secrets: string[];
+  secrets: OTPCode[];
 }
-export default Vue.extend({
+
+// TS mixin support not good
+export default useSetInterval.extend({
   name: "Home",
   computed: mapState({ secrets: "secrets" }),
-  methods: mapActions({ addSecret: "addSecret", deleteSecret: "deleteSecret" }),
+  mounted() {
+    this.createInterval(this.handleTick, 1000);
+  },
+  methods: {
+    ...mapActions({ addSecret: "addSecret", deleteSecret: "deleteSecret" }),
+    handleTick() {
+      console.log("tock");
+    }
+  },
   components: {
     CodeGenerator,
     AddSecret,
     DeleteSecret
-  }
+  },
+  mixins: [useSetInterval]
 });
 </script>
