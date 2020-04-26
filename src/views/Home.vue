@@ -1,14 +1,7 @@
 <template>
   <div class="home">
-    <ul>
-      <countdown :time="countdown.remainingTime" />
-      <div v-for="(secret, i) in secrets" :key="i">
-        <code-display :name="secret.name" :code="secret.code" />
-
-        <!-- TODO delete secrets but not using secret.secret -->
-        <delete-secret :secret="secret.secret" @delete-secret="deleteSecret" />
-      </div>
-    </ul>
+    <countdown :time="countdown.remainingTime" />
+    <code-table :accounts="secrets" @delete-secret="deleteSecret" />
     <add-secret @new-secret="addSecret" />
   </div>
 </template>
@@ -17,9 +10,8 @@
 import Vue from "vue";
 import { mapState, mapActions } from "vuex";
 
-import CodeDisplay from "@/components/CodeDisplay.vue";
+import CodeTable from "@/components/CodeTable.vue";
 import AddSecret from "@/components/AddSecret.vue";
-import DeleteSecret from "@/components/DeleteSecret.vue";
 import Countdown from "@/components/Countdown.vue";
 import useCountdown from "@/mixins/useCountdown";
 import { State } from "@/store/state";
@@ -43,11 +35,17 @@ export default useCountdown.extend({
     }
   },
   components: {
-    CodeDisplay,
+    CodeTable,
     AddSecret,
-    DeleteSecret,
     Countdown
   },
   mixins: [useCountdown]
 });
 </script>
+
+<style>
+.home {
+  display: flex;
+  flex-direction: column;
+}
+</style>

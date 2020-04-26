@@ -1,7 +1,5 @@
 <template>
-  <div class="countdown-timer">
-    <progress max="100" :value="percent" />
-  </div>
+  <progress max="100" :value="percent" />
 </template>
 
 <script lang="ts">

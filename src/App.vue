@@ -1,6 +1,8 @@
 <template>
   <div id="app">
-    <home />
+    <div id="content">
+      <home />
+    </div>
   </div>
 </template>
 
@@ -13,3 +15,14 @@ export default Vue.extend({
   }
 });
 </script>
+
+<style scoped>
+#app {
+  width: 100%;
+}
+#content {
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 250px;
+}
+</style>
