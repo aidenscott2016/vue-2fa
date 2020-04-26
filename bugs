@@ -1,0 +1,6 @@
+
+adding " v-on:click="emitSecret" as a secret will throw error 
+```
+TypeError: "Invalid character found:  "
+    toBuf otpauth.js:252
+```
