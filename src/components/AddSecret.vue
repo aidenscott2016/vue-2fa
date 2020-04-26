@@ -11,7 +11,11 @@ export default Vue.extend({
   data: () => ({ secret: "" }),
   methods: {
     emitSecret() {
-      this.$emit("new-secret", this.secret);
+      this.$emit("new-secret", {
+        secret: this.secret,
+        code: "",
+        name: this.secret
+      });
       this.secret = "";
     }
   }

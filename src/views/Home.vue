@@ -2,8 +2,8 @@
   <div class="home">
     <ul>
       <div v-for="(secret, i) in secrets" :key="i">
-        <code-generator :secret="secret" />
-        <delete-secret :secret="secret" @delete-secret="deleteSecret" />
+        <code-generator :name="secret.name" :code="secret.code" />
+        <delete-secret :secret="secret.secret" @delete-secret="deleteSecret" />
       </div>
     </ul>
     <add-secret @new-secret="addSecret" />
