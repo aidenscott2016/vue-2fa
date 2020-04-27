@@ -1,5 +1,14 @@
 # totp-vue
 
+
+A totp one time password generator app.
+
+A learning exercise for vue, vuex & vue router.
+Secrets are stored in localstorage.
+
+![screenshot](screenshot.png)
+
+
 ## Project setup
 ```
 yarn install
