@@ -13,16 +13,16 @@ import { mapState, mapActions } from "vuex";
 import CodeTable from "@/components/CodeTable.vue";
 import AddSecret from "@/components/AddSecret.vue";
 import Countdown from "@/components/Countdown.vue";
-import useCountdown from "@/mixins/useCountdown";
 import { State } from "@/store/state";
 import { Actions } from "@/store/actions";
+import useCountdown from "use-countdown";
 
-// TS mixin support not good
-export default useCountdown.extend({
+export default Vue.extend({
   name: "Home",
   computed: mapState({ secrets: "secrets" }),
   created() {
-    this.createInterval(this.handleTick, 30);
+    // TS mixin support not good....
+    (this as any).createInterval(this.handleTick, 30);
   },
   methods: {
     ...mapActions({

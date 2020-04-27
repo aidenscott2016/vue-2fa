@@ -8513,6 +8513,12 @@ vue-template-es2015-compiler@^1.9.0:
   version "1.9.1"
   resolved "https://registry.npm.taobao.org/vue-template-es2015-compiler/download/vue-template-es2015-compiler-1.9.1.tgz#1ee3bc9a16ecbf5118be334bb15f9c46f82f5825"
 
+vue-use-countdown@^0.0.1:
+  version "0.0.1"
+  resolved "https://registry.yarnpkg.com/vue-use-countdown/-/vue-use-countdown-0.0.1.tgz#667012655e1b1f9b31f15d7c0344ead6d0378962"
+  dependencies:
+    vue "^2.6.11"
+
 vue@^2.6.11:
   version "2.6.11"
   resolved "https://registry.npm.taobao.org/vue/download/vue-2.6.11.tgz#76594d877d4b12234406e84e35275c6d514125c5"

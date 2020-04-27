@@ -1,7 +1,6 @@
 import OTPAuth from "otpauth";
 import { State } from "@/store/state";
 
-export const getCurrentSeconds = () => Math.round(new Date().getTime() / 1000);
 export const getCode = (secret: string) =>
   new OTPAuth.TOTP({ secret }).generate();
 
